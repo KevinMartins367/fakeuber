@@ -10,6 +10,11 @@ import { GoogleMaps } from '@ionic-native/google-maps';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
+import { ComponentsModule } from '../components/components.module';
+
+import { LocalizationProvider } from '../providers/localization/localization';
+import { LoadProvider } from '../providers/load/load';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -17,6 +22,7 @@ import { HomePage } from '../pages/home/home';
   ],
   imports: [
     BrowserModule,
+    ComponentsModule, // new components
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -29,7 +35,10 @@ import { HomePage } from '../pages/home/home';
     SplashScreen,
     Geolocation,
     GoogleMaps,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    LocalizationProvider,
+    LoadProvider,
+    LoadProvider
   ]
 })
 export class AppModule {}
