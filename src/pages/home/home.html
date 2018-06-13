@@ -23,33 +23,8 @@
 </ion-header>
 
 <ion-content padding>
-  <div #map id="map" style="height:90%"></div>
-  <pickup [map]="map" [isPinSet]="isMapIdle"></pickup>
-  <div class="bottom request-controls">
-    <ion-row>
-      <ion-col item-width="50">
-        <button ion-button block color="light" icon-start>
-          <ion-icon name="card"></ion-icon>
-          Visa **34
-        </button>
-      </ion-col>
-      <ion-col item-width="50">
-        <button ion-button block color="light" icon-start>
-          <ion-icon name="cash"></ion-icon>
-          Dinheiro
-        </button>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <button [hidden]="isPickupRequested" ion-button block color="primary" (click)="confirmPickup()">Pedir carro</button>
-        <button [hidden]="!isPickupRequested"  ion-button block color="danger" (click)="cancelPickup()">Cancelar carro</button>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        Motorista chega aproximadamente em 5 min
-      </ion-col>
-    </ion-row>
-  </div>
+  The world is your oyster.
+  <p>
+    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
+  </p>
 </ion-content>
