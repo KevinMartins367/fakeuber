@@ -3,6 +3,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { HttpClientModule } from '@angular/common/http';
 
 import { Geolocation } from '@ionic-native/geolocation';
 import { GoogleMaps } from '@ionic-native/google-maps';
@@ -14,6 +15,7 @@ import { ComponentsModule } from '../components/components.module';
 
 import { LocalizationProvider } from '../providers/localization/localization';
 import { LoadProvider } from '../providers/load/load';
+import { CarProvider } from '../providers/car/car';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { LoadProvider } from '../providers/load/load';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     ComponentsModule, // new components
     IonicModule.forRoot(MyApp)
   ],
@@ -38,7 +41,8 @@ import { LoadProvider } from '../providers/load/load';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     LocalizationProvider,
     LoadProvider,
-    LoadProvider
+    LoadProvider,
+    CarProvider
   ]
 })
 export class AppModule {}

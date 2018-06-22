@@ -13,7 +13,6 @@ export class HomePage {
 
   @ViewChild('map') mapElement: ElementRef;
   
-  markers = [];
   isPickupRequested: boolean;
   isMapIdle: boolean;
   loading: any;
@@ -25,8 +24,9 @@ export class HomePage {
 
   ionViewDidLoad(){
     let element = this.mapElement.nativeElement;
-    this.local.start(element);
+    this.local.start(element); 
     this.isMapIdle =  this.local.isMapIdle;
+   
   }
 
   confirmPickup(){

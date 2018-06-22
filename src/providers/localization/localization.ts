@@ -4,13 +4,17 @@ import { Observable } from 'rxjs/Observable';
 import { Geolocation } from '@ionic-native/geolocation';
 import { GoogleMaps, GoogleMap, CameraPosition,LatLng, GoogleMapsEvent, Marker, MarkerOptions, MarkerIcon } from '@ionic-native/google-maps';
 
+
+import { CarProvider } from '../../providers/car/car';
+
 @Injectable()
 export class LocalizationProvider {
 
   map: GoogleMap;
   isMapIdle: boolean;
+  public carMarkers: Array<Marker>;
 
-  constructor(private geolocation: Geolocation) {  }
+  constructor(private geolocation: Geolocation, public carP: CarProvider) {  }
 
   start(element){
     this.map = GoogleMaps.create(element);
@@ -63,17 +67,18 @@ export class LocalizationProvider {
 
   addMapEventListeners(){
     this.map.on(GoogleMapsEvent.CAMERA_MOVE).subscribe((params: any[]) => {
-      let latLng: LatLng = params[0].target;
-      console.log('teste');
+      // let latLng: LatLng = params[0].target;
       
       this.isMapIdle = false;
       this.removePickupMarker();
     });
     this.map.on(GoogleMapsEvent.CAMERA_MOVE_END).subscribe((params: any[]) => {
-      let latLng: LatLng = params[0].target;
-      console.log(latLng + " is clicked!");
+      console.log(params);
+      
+      // let latLng: LatLng = params[0].target;
       this.isMapIdle = true;
       this.showPickupMarker();
+      this.fetchAndRefreshCars(); 
     });
   }
   
@@ -93,18 +98,54 @@ export class LocalizationProvider {
     };
     
     return this.map.addMarker(markerOptions).then((marker: Marker) => {
-
       marker.showInfoWindow();
-    
     });
     
   }
 
   removePickupMarker(){
-    console.log('remove');
+    if(this.isMapIdle == false){
+      this.map.clear();
+    }
+  }
+
+  addCarMarker(car){
     
-    this.map.clear();
+    let icon: MarkerIcon = {
+      url: 'assets/imgs/car-icon.png',
+      size: {
+        width: 50,
+        height: 50
+      }
+    };
+    
+    let markerOptions: MarkerOptions ={
+      id: car.id,
+      icon: icon,
+      position: new LatLng(car.coord.lat, car.coord.lng),
+      map: this.map
+    };
+
+    return this.map.addMarker(markerOptions).then((marker: Marker) => {
+      this.carMarkers.push(marker);
+    });
+
+  }
+  
+  fetchAndRefreshCars(){
+    this.carP.getCars()
+    .then((data: any) => {
+      
+      for (let i = 0; i < data.length; i++) {
+        const element = data[i];
+        this.addCarMarker(element);
+        
+      }
+      
+    })
+    .catch((e) => console.error(e));
     
   }
+  
 
 }

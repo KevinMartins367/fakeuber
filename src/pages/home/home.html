@@ -24,7 +24,14 @@
 
 <ion-content padding>
   <div #map id="map" style="height:90%"></div>
-  <pickup [map]="map" [isPinSet]="isMapIdle"></pickup>
+  <pickup 
+    [map]="map" 
+    [isPinSet]="isMapIdle">
+  </pickup>
+  <available-cars 
+    [map]="map" 
+    [isPickupRequested]="isPickupRequested">
+  </available-cars>
   <div class="bottom request-controls">
     <ion-row>
       <ion-col item-width="50">
