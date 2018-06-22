@@ -1,7 +1,7 @@
 {
   "name": "fakeuber",
-  "version": "0.0.1",
-  "author": "Ionic Framework",
+  "version": "0.0.2",
+  "author": "Kevin Martins",
   "homepage": "http://ionicframework.com/",
   "private": true,
   "scripts": {
